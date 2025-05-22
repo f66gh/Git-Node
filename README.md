@@ -277,3 +277,81 @@ git push -u origin master:main # -u表示上传，第一个master是本地的分
 ## VSCode
 
 ![image-20250521195818282](./pic/image-20250521195818282.png)
+
+## 分支
+
+```cmd
+git branch #查看当前所有分支
+git branch dev #新建dev分支	
+git checkout dev #切换到dev分支
+git switch master #切换到master分支
+```
+
+master分支工作区复制到dev上，dev工作区有新的文件
+
+![image-20250522150520177](./pic/image-20250522150520177.png)
+
+```cmd
+git merge dev #将dev分支合并到当前分支（master）
+git branch -d dev #删除dev分支，且dev是已经被合并的分支
+git branch -D dev #强制删除dev分支
+git checkout -b dev 61aaa56 #从dev2这个状态新建一个分支（和恢复指定状态的分支一个意思）
+```
+
+![image-20250522151150934](./pic/image-20250522151150934.png)
+
+## 冲突
+
+```cmd
+git commit -a -m "feat:1" #对已存在的文件可以同时进行提交至暂存区和仓库
+git commit -am "feat: 1" #上述命令行可简写为这个
+```
+
+![image-20250522152804175](./pic/image-20250522152804175.png)
+
+可以用status查看当前状态，也可以用diff查看两个不同分支的不一致情况
+
+![image-20250522152845905](./pic/image-20250522152845905.png)
+
+应当手动修改冲突文件并再次提交
+
+```cmd
+git merge --abort #当合并出现冲突时可以终止合并
+```
+
+## rebase
+
+如图所示，执行rebase之后所有分支都会合并成一个，从分支的最晚公共结点嫁接到rebase后面的分支
+
+![image-20250522153459133](./pic/image-20250522153459133.png)
+
+```cmd
+alias graph="git log --oneline --graph --decorate --all" #alias是别名指令
+```
+
+![image-20250522154236673](./pic/image-20250522154236673.png)
+
+```cmd
+git reset --hard #将仓库版本回退到指定节点
+```
+
+![image-20250522154534041](./pic/image-20250522154534041.png)
+
+```cmd
+cp -rf branch-demo rebase1 # 复制文件
+cp -rf branch-demo rebase2
+git rebase master #将当前分支变基到master
+```
+
+![image-20250522154828386](./pic/image-20250522154828386.png)
+
+![image-20250522155059020](./pic/image-20250522155059020.png)
+
+![image-20250522155219399](./pic/image-20250522155219399.png)
+
+![image-20250522155247968](./pic/image-20250522155247968.png)
+
+ ## 工作流模型
+
+![image-20250522155748187](./pic/image-20250522155748187.png)
+
